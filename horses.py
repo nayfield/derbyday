@@ -21,6 +21,5 @@ elif sys.argv[1] == 'del':
 elif sys.argv[1] == 'load':
 	myr.delete('derby:horses')
 	for horse in open(sys.argv[2]):
-		horse.strip()
-		print myr.sadd('derby:horses', horse)
+		print myr.sadd('derby:horses', horse.rstrip())
 	
