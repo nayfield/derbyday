@@ -25,9 +25,9 @@ for horse in myr.keys('bet:*'):
 	else:
 		warns.append(('warning,', hn, 'needs bets refunded.'))
 
-print '<table border=1 style="font-size:22px">'
+print '<table border=1 style="font-size:20px;border-collapse:collapse;">'
 print '<tr><th>Horse</th><th>Local Odds</th></tr>'
-for horse in myr.smembers('derby:horses'):
+for horse in sorted(myr.smembers('derby:horses')):
 	print "<tr><td>", horse, "</td>"
 	hbet=0
 	for bet in myr.hkeys(('bet:'+horse)):
