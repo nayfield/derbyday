@@ -3,6 +3,7 @@
 import redis
 import sys
 import cgi, cgitb
+cgitb.enable()
 
 myr=redis.Redis()
 
