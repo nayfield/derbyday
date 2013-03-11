@@ -10,5 +10,5 @@ if sys.argv[1] == 'list':
 
 elif sys.argv[1] == 'del':
 	for horse in xrange(2,len(sys.argv)):
-		print 'deleting', horse
+		print 'deleting', sys.argv[horse]
 		print myr.srem('derby:horses',sys.argv[horse])
