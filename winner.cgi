@@ -46,12 +46,15 @@ else:
 		if myr.sismember('derby:horses', hn):
 			for bet in myr.hkeys(horse):
 				totbet = totbet + int(myr.hget(horse, bet))
-		else:
-			warns.append(('warning,', hn, 'needs bets refunded.'))
 	for bet in myr.hkeys(winkey):
 		winbet=winbet + int(myr.hget(winkey, bet))
+	vig = myr.get('derby:vig')
+	if vig:
+		vig = int(vig)
+	else:
+		vig = 0
 	if winbet:
-		payper = int(round(totbet / winbet))
+		payper = int(round((totbet - vig) / winbet))
 	for bettor in myr.hkeys(winkey):
 		print "<tr><td>", bettor, "</td>"
 		payout = int(myr.hget(winkey, bettor)) * payper
@@ -59,6 +62,7 @@ else:
 		print "<td> $", payout, "</td></tr>"
 	print "</table>"
 	print "<p>Paid $", paid, "of total $", totbet, "</p>"
+	print "<p>Helpers keep $", totbet-paid, "</p>"
 	print '[<a href="tote.cgi">Back to Tote</a>]'
 print '</p>'
 print "</body></html>"

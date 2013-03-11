@@ -27,7 +27,12 @@ for horse in myr.keys('derby:bet:*'):
 			totbet = totbet + int(myr.hget(horse, bet))
 	else:
 		warns.append(('warning:'+ hn+ ' needs bets refunded.'))
-
+vig = myr.get('derby:vig')
+if vig:
+	vig = int(vig)
+else:
+	vig = 0
+totbet = totbet - vig
 print '<table border=1 style="font-size:20px;border-collapse:collapse;float:left; margin:0 10px 0 0">'
 print '<tr><th>Horse</th><th>Local Odds</th><th>W</th></tr>'
 for horse in nsorted(myr.smembers('derby:horses')):

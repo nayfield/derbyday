@@ -11,9 +11,13 @@ parser.add_option("-f", "--horses", type="string", dest="horsefile",
 			help="file containing horses")
 parser.add_option("-b", "--bettors", type="string", dest="betfile",
 			help="file containing bettors")
+parser.add_option("-v", "--vig", type="int", dest="vig",
+			help="vig for the kids")
 parser.set_defaults(horsefile="horses.txt", betfile="bettors.txt")
 (options, args) = parser.parse_args()
 
+if not options.vig:
+	parser.error('-v must be set.  see --help')
 
 for key in myr.keys('derby:*'):
 	myr.delete(key)
@@ -28,3 +32,5 @@ for bettor in open(options.betfile):
 		continue
 	myr.sadd('derby:bettors', bettor.rstrip())
 
+if options.vig:
+	myr.set('derby:vig', options.vig)
