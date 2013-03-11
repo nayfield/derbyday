@@ -4,10 +4,16 @@ A simple set of scripts for my derby day party.
 Requires a redis server.
 
 
-1. put horses and bettors into text files
+On derby day:
+1. put posting horses and (initial) bettors into files
 2. run setup
 3. point browser to tote.cgi
 
-things you can't do from the web:
-seedbet - seed the pot (bet on every horse)
-betfix - revert a bet
+Optionally, seedbet can be used to bet $1 on every horse
+
+When a horse is scratched, use 'scratch' to remove them.
+
+Scratched horses will print warnings that you need to refund.
+Use 'betfix' to handle that.
+
+Everything else should be self-explanitory via the web.
