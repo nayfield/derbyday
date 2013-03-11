@@ -18,6 +18,9 @@ print "<html><head>"
 print "<title>DerbyDay Place Bet</title>"
 print "</head><body>"
 
+
+limit = int(myr.get('derby:betlimit'))
+
 if "bettor" not in form:
 	print '<form action="placebet.cgi" method="post" style="font-size:22px">'
 	print 'Bettor: <select name=bettor>'
@@ -35,7 +38,7 @@ if "bettor" not in form:
 	print '</select>'
 
 	print 'Bet: <select name=amount>'
-	for amount in 1, 2, 3, 4, 5:
+	for amount in xrange(1,(limit+1)):
 		print '<option', ('value="'+str(amount)+'">')
 		print '$', amount, '</option>'
 	print '</select>'
@@ -52,10 +55,17 @@ else:
 	bettor = form.getfirst("bettor")
 	horse = form.getfirst("horse")
 	amount = int(form.getfirst("amount"))
-	myr.hincrby(('derby:bet:'+horse),bettor,amount)
-	print '<p style="font-size:22px">'
-	print "took bet for", bettor, " - $", amount, "on", horse
-	#print ticket
+	out = myr.hget(('derby:bet:'+horse),bettor)
+	tot = amount
+	if out:
+		tot = tot + int(out)
+	if tot > limit:
+		print '<p style="font-size:30px">Would be over limit!'
+	else:
+		myr.hincrby(('derby:bet:'+horse),bettor,amount)
+		print '<p style="font-size:22px">'
+		print "took bet for", bettor, " - $", amount, "on", horse
+		#print ticket
 	print '</p><p>'
 	print '[<a href="tote.cgi">Back to Tote</a>]'
 print '</p>'

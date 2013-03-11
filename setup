@@ -4,7 +4,6 @@ import redis
 import sys
 import optparse
 
-myr=redis.Redis()
 
 parser = optparse.OptionParser()
 parser.add_option("-f", "--horses", type="string", dest="horsefile",
@@ -13,14 +12,21 @@ parser.add_option("-b", "--bettors", type="string", dest="betfile",
 			help="file containing bettors")
 parser.add_option("-v", "--vig", type="int", dest="vig",
 			help="vig for the kids")
+parser.add_option("-l", "--limit", type="int", dest="limit",
+			help="bet limit per horse")
 parser.set_defaults(horsefile="horses.txt", betfile="bettors.txt")
 (options, args) = parser.parse_args()
 
-if not options.vig:
-	parser.error('-v must be set.  see --help')
+
+myr=redis.Redis()
+
+if not options.limit:
+	parser.error('-l must be set.  see --help')
 
 for key in myr.keys('derby:*'):
 	myr.delete(key)
+
+print myr.set('derby:betlimit', options.limit)
 
 for horse in open(options.horsefile):
 	if horse.startswith('#'):
