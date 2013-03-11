@@ -1,0 +1,23 @@
+#
+# One horse per line
+#
+1 Vyjack
+2 Orb
+3 Verrazano
+4 Hear The Ghost
+5 Flashback
+6 Goldencents
+7 Shanghai Bobby
+8 Java's War
+9 Falling Sky
+10 West Hills Giant
+11 Code West
+12 Oxbow
+13 Dynamic Sky
+14 Speak Logistics
+15 Itsmyluckyday
+16 Overanalyze
+17 Uncaptured
+18 Den's Legacy
+19 Power Broker
+20 Super Ninety Nine

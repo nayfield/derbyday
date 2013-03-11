@@ -1,0 +1,30 @@
+#!/usr/bin/python
+
+import redis
+import sys
+import optparse
+
+myr=redis.Redis()
+
+parser = optparse.OptionParser()
+parser.add_option("-f", "--horses", type="string", dest="horsefile",
+			help="file containing horses")
+parser.add_option("-b", "--bettors", type="string", dest="betfile",
+			help="file containing bettors")
+parser.set_defaults(horsefile="horses.txt", betfile="bettors.txt")
+(options, args) = parser.parse_args()
+
+
+for key in myr.keys('derby:*'):
+	myr.delete(key)
+
+for horse in open(options.horsefile):
+	if horse.startswith('#'):
+		continue
+	myr.sadd('derby:horses', horse.rstrip())
+
+for bettor in open(options.betfile):
+	if bettor.startswith('#'):
+		continue
+	myr.sadd('derby:bettors', bettor.rstrip())
+
