@@ -26,7 +26,7 @@ for horse in myr.keys('derby:bet:*'):
 			numbets = numbets + 1
 			totbet = totbet + int(myr.hget(horse, bet))
 	else:
-		warns.append(('warning,', hn, 'needs bets refunded.'))
+		warns.append(('warning:'+ hn+ ' needs bets refunded.'))
 
 print '<table border=1 style="font-size:20px;border-collapse:collapse;float:left; margin:0 10px 0 0">'
 print '<tr><th>Horse</th><th>Local Odds</th><th>W</th></tr>'
@@ -46,9 +46,10 @@ print "</table>"
 
 
 print "<p>total pot $", totbet, "in", numbets, "bets.</p>"
-if warns:
-	print '==='
-	print warns
+for warning in warns:
+	print '<p><b>'
+	print warning
+	print '</b></p>'
 
 print '<p>'
 print '[<a href="placebet.cgi">Place Bet</a>]'
