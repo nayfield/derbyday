@@ -2,8 +2,10 @@
 
 import redis
 import sys
+from nicesort import nsorted
 import cgi, cgitb
 cgitb.enable()
+
 
 myr=redis.Redis()
 
@@ -28,7 +30,7 @@ for horse in myr.keys('derby:bet:*'):
 
 print '<table border=1 style="font-size:20px;border-collapse:collapse;float:left; margin:0 10px 0 0">'
 print '<tr><th>Horse</th><th>Local Odds</th><th>W</th></tr>'
-for horse in sorted(myr.smembers('derby:horses')):
+for horse in nsorted(myr.smembers('derby:horses')):
 	print "<tr><td>", horse, "</td>"
 	hbet=0
 	for bet in myr.hkeys(('derby:bet:'+horse)):

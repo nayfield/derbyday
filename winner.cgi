@@ -3,6 +3,7 @@
 import redis
 import sys
 import cgi, cgitb
+from nicesort import nsorted
 
 myr=redis.Redis()
 
@@ -21,7 +22,7 @@ if "winner" not in form:
 
 	print 'Horse: <select name=winner>'
 	print '<option value=""></option>'
-	for horse in sorted(myr.smembers('derby:horses')):
+	for horse in nsorted(myr.smembers('derby:horses')):
 		print '<option', ('value="'+horse+'">')
 		print horse, '</option>'
 	print '</select>'
