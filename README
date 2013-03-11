@@ -18,4 +18,5 @@ Scratched horses will print warnings that you need to refund.
 Use 'betfix' to handle that.
 
 Everything else should be self-explanitory via the web.  This was
-built for some of the kids at the party to handle the wagering.
+built for some of the kids at the party to handle the wagering. They
+get to keep the 'vig' (and any rounding errors).
