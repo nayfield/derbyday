@@ -17,8 +17,8 @@ print "</head><body>"
 totbet=0
 numbets=0
 warns=[]
-for horse in myr.keys('bet:*'):
-	hn = horse.split(':')[1]
+for horse in myr.keys('derby:bet:*'):
+	hn = horse.split(':')[2]
 	if myr.sismember('derby:horses', hn):
 		for bet in myr.hkeys(horse):
 			numbets = numbets + 1
@@ -31,8 +31,8 @@ print '<tr><th>Horse</th><th>Local Odds</th><th>W</th></tr>'
 for horse in sorted(myr.smembers('derby:horses')):
 	print "<tr><td>", horse, "</td>"
 	hbet=0
-	for bet in myr.hkeys(('bet:'+horse)):
-		hbet=hbet + int(myr.hget(('bet:'+horse), bet))
+	for bet in myr.hkeys(('derby:bet:'+horse)):
+		hbet=hbet + int(myr.hget(('derby:bet:'+horse), bet))
 	if hbet == 0:
 		print "<td>", 'INF'," </td>"
 	else:

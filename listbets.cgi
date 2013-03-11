@@ -16,9 +16,9 @@ print "</head><body>"
 
 print '<table border=1 style="font-size:22px">'
 print '<tr><th>Horse</th><th>Bettor</th><th>Amount</th></tr>'
-for horse in sorted(myr.keys('bet:*')):
+for horse in sorted(myr.keys('derby:bet:*')):
 	for bettor in myr.hkeys(horse):
-		print "<tr><td>", horse.split(':')[1], "</td>"
+		print "<tr><td>", horse.split(':')[2], "</td>"
 		print "<td>", bettor, "</td>"
 		print "<td> $", myr.hget(horse, bettor), "</td>"
 print "</table>"

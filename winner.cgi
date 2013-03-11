@@ -36,12 +36,12 @@ if "winner" not in form:
 else:
 	print '<table border=1 style="font-size:22px">'
 	winner = form.getfirst("winner")
-	winkey = (('bet:'+winner))
+	winkey = (('derby:bet:'+winner))
 	totbet = 0
 	winbet = 0
 	paid = 0
-	for horse in myr.keys('bet:*'):
-		hn = horse.split(':')[1]
+	for horse in myr.keys('derby:bet:*'):
+		hn = horse.split(':')[2]
 		if myr.sismember('derby:horses', hn):
 			for bet in myr.hkeys(horse):
 				totbet = totbet + int(myr.hget(horse, bet))

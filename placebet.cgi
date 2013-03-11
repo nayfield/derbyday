@@ -50,7 +50,7 @@ else:
 	bettor = form.getfirst("bettor")
 	horse = form.getfirst("horse")
 	amount = int(form.getfirst("amount"))
-	myr.hincrby(('bet:'+horse),bettor,amount)
+	myr.hincrby(('derby:bet:'+horse),bettor,amount)
 	print '<p style="font-size:22px">'
 	print "took bet for", bettor, " - $", amount, "on", horse
 	#print ticket
