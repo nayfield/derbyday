@@ -19,14 +19,14 @@ if "bettor" not in form:
 	print '<form action="placebet.cgi" method="post" style="font-size:22px">'
 	print 'Bettor: <select name=bettor>'
 	print '<option value=""></option>'
-	for bettor in myr.smembers('derby:bettors'):
+	for bettor in sorted(myr.smembers('derby:bettors')):
 		print '<option', ('value="'+bettor+'">')
 		print bettor, '</option>'
 	print '</select>'
 
 	print 'Horse: <select name=horse>'
 	print '<option value=""></option>'
-	for horse in myr.smembers('derby:horses'):
+	for horse in sorted(myr.smembers('derby:horses')):
 		print '<option', ('value="'+horse+'">')
 		print horse, '</option>'
 	print '</select>'
