@@ -7,3 +7,6 @@ Requires a redis server.
 1. put horses and bettors into text files
 2. run setup
 3. point browser to tote.cgi
+
+things you can't do from the web:
+seedbet - seed the pot (bet on every horse)
