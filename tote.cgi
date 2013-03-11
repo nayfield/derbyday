@@ -37,6 +37,8 @@ for horse in sorted(myr.smembers('derby:horses')):
 		print "<td>", 'INF'," </td>"
 	else:
 		print "<td>", (totbet / hbet), 'to 1</td>'
+		print "<td>"
+		print ('<a href="winner.cgi?winner='+horse+'">W</a>')
 	print "</tr>"
 print "</table>"
 
