@@ -10,3 +10,4 @@ Requires a redis server.
 
 things you can't do from the web:
 seedbet - seed the pot (bet on every horse)
+betfix - revert a bet
