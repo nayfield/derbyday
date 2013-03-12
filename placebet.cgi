@@ -22,22 +22,20 @@ print "</head><body>"
 limit = int(myr.get('derby:betlimit'))
 
 if "bettor" not in form:
-	print '<form action="placebet.cgi" method="post" style="font-size:22px">'
-	print 'Bettor: <select name=bettor>'
-	print '<option value=""></option>'
+	print '<form action="placebet.cgi" method="post" style="font-size:22px;">'
+	print 'Bettor: <select name=bettor size=21 style="vertical-align:top;">'
 	for bettor in nsorted(myr.smembers('derby:bettors')):
 		print '<option', ('value="'+bettor+'">')
 		print bettor, '</option>'
 	print '</select>'
 
-	print 'Horse: <select name=horse>'
-	print '<option value=""></option>'
+	print 'Horse: <select name=horse size=21 style="vertical-align:top;">'
 	for horse in nsorted(myr.smembers('derby:horses')):
 		print '<option', ('value="'+horse+'">')
 		print horse, '</option>'
 	print '</select>'
 
-	print 'Bet: <select name=amount>'
+	print 'Bet: <select name=amount size=21 style="vertical-align:top;">'
 	for amount in xrange(1,(limit+1)):
 		print '<option', ('value="'+str(amount)+'">')
 		print '$', amount, '</option>'
