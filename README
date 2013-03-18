@@ -11,8 +11,7 @@ On derby day:
 2. run setup
 3. point browser to tote.cgi
 
-Optionally, seedbet can be used to bet $1 on every horse.  This means
-they now have odds on the tote board.
+Optionally, seedbet can be used to bet $1 on every horse.  
 
 When a horse is scratched, use the 'scratch' utility to remove them.
 
@@ -21,4 +20,11 @@ Use 'betfix' to handle that.
 
 Everything else should be self-explanitory via the web.  This was
 built for some of the kids at the party to handle the wagering. They
-get to keep the 'vig' (and any rounding errors).
+get to keep the 'vig' (and any rounding errors).  When a bet is
+placed via the cgi, the printer prints a ticket so there's something
+to tear in half when your horse loses.
+
+If you do print, you'll need a suitable printer which lpr (a2ps actually)
+can print to.  Tested with a Brother QL-720NW using 54mm paper tape.
+
+
