@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Print a ticket for derbyday
+# args: horse, bettor, amount
+
+# This is for a Brother QL-720NW
+#  uses a2ps to print more than 19 columns of text
+
+(cat <<_EOF
+
+###################
+
+Horse $1
+Bettor $2
+Amount $3
+
+###################
+_EOF
+
+)| a2ps -P QL-720NW --stdin="derbyday ticket" 
+
