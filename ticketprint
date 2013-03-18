@@ -5,6 +5,12 @@
 
 # This is for a Brother QL-720NW
 #  uses a2ps to print more than 19 columns of text
+LP="QL-720NW"
+
+if [ $# -ne 3 ]; then
+	echo "Need 3 args"
+	exit 1
+fi
 
 (cat <<_EOF
 
@@ -17,5 +23,5 @@ Amount $3
 ###################
 _EOF
 
-)| a2ps -P QL-720NW --stdin="derbyday ticket" 
+)| a2ps -P $LP --stdin="derbyday ticket"  2>&1
 
