@@ -7,6 +7,9 @@
 #  uses a2ps to print more than 19 columns of text
 LP="QL-720NW"
 
+#Uncomment the next line if you don't want to print
+#exit 0
+
 if [ $# -ne 3 ]; then
 	echo "Need 3 args"
 	exit 1
