@@ -3,6 +3,7 @@
 import redis
 import sys
 import cgi, cgitb
+import subprocess
 from nicesort import nsorted
 
 cgitb.enable()
@@ -64,6 +65,8 @@ else:
 		print '<p style="font-size:22px">'
 		print "took bet for", bettor, " - $", amount, "on", horse
 		#print ticket
+		sys.stdout.flush()
+		subprocess.call(["./ticketprint", horse, bettor, str(amount)])
 	print '</p><p>'
 	print '[<a href="tote.cgi">Back to Tote</a>]'
 print '</p>'
