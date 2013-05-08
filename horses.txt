@@ -1,23 +1,20 @@
-#
-# One horse per line
-#
-1 Vyjack
-2 Orb
-3 Verrazano
-4 Hear The Ghost
-5 Flashback
-6 Goldencents
-7 Shanghai Bobby
-8 Java's War
-9 Falling Sky
-10 West Hills Giant
-11 Code West
-12 Oxbow
-13 Dynamic Sky
-14 Speak Logistics
-15 Itsmyluckyday
-16 Overanalyze
-17 Uncaptured
-18 Den's Legacy
-19 Power Broker
-20 Super Ninety Nine
+1 Black Onyx
+2 Oxbow
+3 Revolutionary
+4 Golden Soul
+5 Normandy Invasion
+6 Mylute
+7 Giant Finish
+8 Goldencents
+9 Overanalyze
+10 Palace Malice
+11 Lines of Battle
+12 Itsmyluckyday
+13 Falling Sky
+14 Verrazano
+15 Charming Kitten
+16 Orb
+17 Will Take Charge
+18 Frac Daddy
+19 Java's War
+20 Vyjack
