@@ -1,0 +1,109 @@
+---
+
+# Ansible playbook for setting up derbyday.
+# Works against a 'minimal' install of centos 7
+# Does not disable firewalld or selinux
+#
+# Once this is done, you just need to setup horses and such
+#
+# Printing will probably be different
+
+
+
+
+- hosts: derbyday
+  #debugger: on_failed
+  become: yes
+
+  handlers:
+    - name: restart apache
+      service: name=httpd state=restarted
+
+  tasks:
+
+        - name: add epel
+          package: name=epel-release state=installed
+
+        - name: install packages
+          package: name={{item}} state=installed
+          with_items:
+                - cups
+                - python-redis
+                - httpd
+                - a2ps  #this installs a massive 218 packages!!
+                - redis
+                - git
+                - libsemanage-python
+
+        - name: enable services
+          service: name={{item}} state=started enabled=yes
+          with_items:
+                - httpd
+                - redis
+        
+        - name: open firewall for webserver
+          firewalld:
+            service: http
+            permanent: true
+            state: enabled
+            immediate: yes
+
+
+        - name: cgi setup
+          blockinfile:
+            dest: /etc/httpd/conf.d/derbyday.conf
+            owner: root
+            group: root
+            mode: 0644
+            create: yes
+            block: |
+                ScriptAlias /dd /var/www/cgi-bin/derbyday
+                RedirectMatch ^/$ /dd/tote.cgi
+                <Directory /var/www/cgi-bin/derbyday>
+                        Options ExecCGI Indexes MultiViews FollowSymLinks
+                </Directory>
+
+
+          notify:
+          - restart apache
+
+
+        - name: checkout derbyday
+          # putting in cgi-bin directory so selinux just works
+          git:
+            repo: https://github.com/nayfield/derbyday.git 
+            dest: /var/www/cgi-bin/derbyday
+
+        - name: Set selinux to allow cgi to talk with redis
+          # well it doesn't quite work until we do this
+          seboolean:
+            name: httpd_can_network_connect
+            state: yes
+            persistent: yes
+
+        - name: copy rpms
+          copy: src={{item}} dest=/tmp
+          with_items:
+            - ql720nwcupswrapper-1.1.4-0.i386.rpm
+            - ql720nwlpr-1.1.4-0.i386.rpm
+
+        - name: install printing rpms
+          # yum specific cuz
+          yum:
+            name: /tmp/ql720nwcupswrapper-1.1.4-0.i386.rpm , /tmp/ql720nwlpr-1.1.4-0.i386.rpm
+            state: present
+
+        - name: check if printer needs setup
+          command: lpq -P QL-720NW
+          register: lpq_result
+          ignore_errors: True
+
+        - name: add print queue
+          when: lpq_result is failed
+          command: lpadmin -p QL-720NW -P /opt/brother/PTouch/ql720nw/cupswrapper/brother_ql720nw_printer_en.ppd -v socket://label.nayfield.com -E
+
+        - name: set default paper size
+          when: lpq_result is failed
+          command: lpadmin -p QL-720NW -o PageSize=54x1
+
+
