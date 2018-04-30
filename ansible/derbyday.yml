@@ -74,13 +74,18 @@
             repo: https://github.com/nayfield/derbyday.git 
             dest: /var/www/cgi-bin/derbyday
 
-        - name: Set selinux to allow cgi to talk with redis
+        - name: selinux to allow cgi to talk with redis
           # well it doesn't quite work until we do this
           seboolean:
             name: httpd_can_network_connect
             state: yes
             persistent: yes
 
+
+#   Here be dragons
+#
+#   Printing setup
+#
         - name: copy rpms
           copy: src={{item}} dest=/tmp
           with_items:
@@ -92,6 +97,9 @@
           yum:
             name: /tmp/ql720nwcupswrapper-1.1.4-0.i386.rpm , /tmp/ql720nwlpr-1.1.4-0.i386.rpm
             state: present
+
+        - name: start cups
+          service: name=cups state=started enabled=yes
 
         - name: check if printer needs setup
           command: lpq -P QL-720NW
@@ -106,4 +114,17 @@
           when: lpq_result is failed
           command: lpadmin -p QL-720NW -o PageSize=54x1
 
+        - name: selinux - cups execmem
+          seboolean:
+            name: cups_execmem
+            state: yes
+            persistent: yes
 
+        - name: restart cups
+          # should be a notify
+          service: name=cups state=restarted
+
+
+## Note: printing still doesn't work via httpd, only from interactive user 
+#  need to get one last selinux tweak.  giving up and setenforce 0 for now
+#
