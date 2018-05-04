@@ -101,18 +101,13 @@
         - name: start cups
           service: name=cups state=started enabled=yes
 
-        - name: check if printer needs setup
-          command: lpq -P QL-720NW
-          register: lpq_result
-          ignore_errors: True
+#        - name: check if printer needs setup
+#          command: lpq -P QL-720NW
+#          register: lpq_result
+#          ignore_errors: True
 
         - name: add print queue
-          when: lpq_result is failed
-          command: lpadmin -p QL-720NW -P /opt/brother/PTouch/ql720nw/cupswrapper/brother_ql720nw_printer_en.ppd -v socket://label.nayfield.com -E
-
-        - name: set default paper size
-          when: lpq_result is failed
-          command: lpadmin -p QL-720NW -o PageSize=54x1
+          command: lpadmin -p QL-720NW -P /opt/brother/PTouch/ql720nw/cupswrapper/brother_ql720nw_printer_en.ppd -v socket://label.nayfield.com -o PageSize=54x1 -E creates=/etc/cups/ppd/QL-720NW.ppd
 
         - name: selinux - cups execmem
           seboolean:
@@ -120,11 +115,12 @@
             state: yes
             persistent: yes
 
-        - name: restart cups
-          # should be a notify
-          service: name=cups state=restarted
-
 
 ## Note: printing still doesn't work via httpd, only from interactive user 
 #  need to get one last selinux tweak.  giving up and setenforce 0 for now
 #
+
+        - name: wimp out and selinux permissive mode
+          selinux:
+            policy: targeted
+            state: permissive
