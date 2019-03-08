@@ -34,7 +34,6 @@ totbet = totbet - vig
 
 totetable=[ ['Horse', 'Local Odds', 'w'] ]
 for horse in nsorted(myr.smembers('derby:horses')):
-    print "<tr><td>", horse, "</td>"
     hbet=0
     for bet in myr.hkeys(('derby:bet:'+horse)):
         hbet=hbet + int(myr.hget(('derby:bet:'+horse), bet))
