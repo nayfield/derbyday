@@ -11,8 +11,8 @@ LP="Label"
 #exit 0
 
 if [ $# -ne 3 ]; then
-	echo "Need 3 args"
-	exit 1
+    echo "Need 3 args"
+    exit 1
 fi
 
 (cat <<_EOF

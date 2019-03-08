@@ -7,13 +7,13 @@ import optparse
 
 parser = optparse.OptionParser()
 parser.add_option("-f", "--horses", type="string", dest="horsefile",
-			help="file containing horses")
+            help="file containing horses")
 parser.add_option("-b", "--bettors", type="string", dest="betfile",
-			help="file containing bettors")
+            help="file containing bettors")
 parser.add_option("-v", "--vig", type="int", dest="vig",
-			help="vig for the kids")
+            help="vig for the kids")
 parser.add_option("-l", "--limit", type="int", dest="limit",
-			help="bet limit per horse")
+            help="bet limit per horse")
 parser.set_defaults(horsefile="horses.txt", betfile="bettors.txt")
 (options, args) = parser.parse_args()
 
@@ -21,22 +21,22 @@ parser.set_defaults(horsefile="horses.txt", betfile="bettors.txt")
 myr=redis.Redis()
 
 if not options.limit:
-	parser.error('-l must be set.  see --help')
+    parser.error('-l must be set.  see --help')
 
 for key in myr.keys('derby:*'):
-	myr.delete(key)
+    myr.delete(key)
 
 print myr.set('derby:betlimit', options.limit)
 
 for horse in open(options.horsefile):
-	if horse.startswith('#'):
-		continue
-	myr.sadd('derby:horses', horse.rstrip())
+    if horse.startswith('#'):
+        continue
+    myr.sadd('derby:horses', horse.rstrip())
 
 for bettor in open(options.betfile):
-	if bettor.startswith('#'):
-		continue
-	myr.sadd('derby:bettors', bettor.rstrip())
+    if bettor.startswith('#'):
+        continue
+    myr.sadd('derby:bettors', bettor.rstrip())
 
 if options.vig:
-	myr.set('derby:vig', options.vig)
+    myr.set('derby:vig', options.vig)

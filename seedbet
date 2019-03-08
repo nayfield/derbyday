@@ -7,9 +7,9 @@ import optparse
 
 parser = optparse.OptionParser()
 parser.add_option("-s", "--seeder", type="string", dest="seeder",
-			help="name of seeder")
+            help="name of seeder")
 parser.add_option("-b", "--bet", type="int", dest="bet",
-			help="amount to bet")
+            help="amount to bet")
 parser.set_defaults(bet=1)
 (options, args) = parser.parse_args()
 
@@ -19,10 +19,10 @@ niceguy = options.seeder
 bet = options.bet
 
 if not myr.sismember('derby:bettors', niceguy):
-	print "Sorry,", niceguy, "isn't a bettor!"
-	sys.exit(1)
+    print "Sorry,", niceguy, "isn't a bettor!"
+    sys.exit(1)
 
 for horse in myr.smembers('derby:horses'):
-	print niceguy, "bets $", bet, "on", horse
-	myr.hincrby(('derby:bet:'+horse),niceguy,bet)
+    print niceguy, "bets $", bet, "on", horse
+    myr.hincrby(('derby:bet:'+horse),niceguy,bet)
 

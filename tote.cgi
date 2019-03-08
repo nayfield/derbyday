@@ -20,41 +20,41 @@ totbet=0
 numbets=0
 warns=[]
 for horse in myr.keys('derby:bet:*'):
-	hn = horse.split(':')[2]
-	if myr.sismember('derby:horses', hn):
-		for bet in myr.hkeys(horse):
-			numbets = numbets + 1
-			totbet = totbet + int(myr.hget(horse, bet))
-	else:
-		warns.append(('warning:'+ hn+ ' needs bets refunded.'))
+    hn = horse.split(':')[2]
+    if myr.sismember('derby:horses', hn):
+        for bet in myr.hkeys(horse):
+            numbets = numbets + 1
+            totbet = totbet + int(myr.hget(horse, bet))
+    else:
+        warns.append(('warning:'+ hn+ ' needs bets refunded.'))
 vig = myr.get('derby:vig')
 if vig:
-	vig = int(vig)
+    vig = int(vig)
 else:
-	vig = 0
+    vig = 0
 totbet = totbet - vig
 print '<table border=1 style="font-size:20px;border-collapse:collapse;float:left; margin:0 10px 0 0">'
 print '<tr><th>Horse</th><th>Local Odds</th><th>W</th></tr>'
 for horse in nsorted(myr.smembers('derby:horses')):
-	print "<tr><td>", horse, "</td>"
-	hbet=0
-	for bet in myr.hkeys(('derby:bet:'+horse)):
-		hbet=hbet + int(myr.hget(('derby:bet:'+horse), bet))
-	if hbet == 0:
-		print "<td>", 'INF'," </td>"
-	else:
-		print "<td>", (totbet / hbet), 'to 1</td>'
-		print "<td>"
-		print ('<a href="winner.cgi?winner='+horse+'">W</a>')
-	print "</tr>"
+    print "<tr><td>", horse, "</td>"
+    hbet=0
+    for bet in myr.hkeys(('derby:bet:'+horse)):
+        hbet=hbet + int(myr.hget(('derby:bet:'+horse), bet))
+    if hbet == 0:
+        print "<td>", 'INF'," </td>"
+    else:
+        print "<td>", (totbet / hbet), 'to 1</td>'
+        print "<td>"
+        print ('<a href="winner.cgi?winner='+horse+'">W</a>')
+    print "</tr>"
 print "</table>"
 
 
 print "<p>total pot $", totbet, "in", numbets, "bets.</p>"
 for warning in warns:
-	print '<p><b>'
-	print warning
-	print '</b></p>'
+    print '<p><b>'
+    print warning
+    print '</b></p>'
 
 print '<p>'
 print '[<a href="placebet.cgi">Place Bet</a>]'

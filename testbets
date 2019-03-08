@@ -8,9 +8,9 @@ import random
 
 parser = optparse.OptionParser()
 parser.add_option("-r", "--rounds", type="int", dest="rounds",
-			help="number of bets")
+            help="number of bets")
 parser.add_option("-m", "--maxbet", type="int", dest="maxbet",
-			help="max per bet")
+            help="max per bet")
 parser.set_defaults(rounds=5)
 (options, args) = parser.parse_args()
 
@@ -20,22 +20,22 @@ limit=int(myr.get('derby:betlimit'))
 bettors=list(myr.smembers('derby:bettors'))
 horses=list(myr.smembers('derby:horses'))
 if options.maxbet:
-	bets=range(1,(options.maxbet+1))
+    bets=range(1,(options.maxbet+1))
 else:
-	bets=range(1,(limit+1))
+    bets=range(1,(limit+1))
 
 for round in xrange(options.rounds):
-	pony=random.choice(horses)
-	punter=random.choice(bettors)
-	wager=random.choice(bets)
-	print pony, punter, wager
-	out = myr.hget(('derby:bet:'+pony),punter)
-	if not out:
-		out = 0
-	else:
-		out = int(out)
-	if out + wager > limit:
-		print " ** Limit reached, go back buddy"
-	else:
-		myr.hincrby(('derby:bet:'+pony),punter,wager)
+    pony=random.choice(horses)
+    punter=random.choice(bettors)
+    wager=random.choice(bets)
+    print pony, punter, wager
+    out = myr.hget(('derby:bet:'+pony),punter)
+    if not out:
+        out = 0
+    else:
+        out = int(out)
+    if out + wager > limit:
+        print " ** Limit reached, go back buddy"
+    else:
+        myr.hincrby(('derby:bet:'+pony),punter,wager)
 
