@@ -3,6 +3,7 @@
 import redis
 import sys
 from nicesort import nsorted
+import ht
 import cgi, cgitb
 cgitb.enable()
 
@@ -11,10 +12,7 @@ myr=redis.Redis()
 
 # total bets
 
-print "Content-type:text/html\r\n\r\n"
-print "<html><head>"
-print "<title>DerbyDay Tote Board</title>"
-print "</head><body>"
+ht.header("Derby Day Tote Board")
 
 totbet=0
 numbets=0

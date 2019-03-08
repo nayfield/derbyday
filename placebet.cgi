@@ -67,7 +67,7 @@ else:
         print "</head><body>"
         print '<p style="font-size:30px">Would be over limit!'
         print '</p><p>'
-        print '[<a href="tote.cgi">Back to Tote</a>]'
+        print '[<a href="placebet.cgi">Try again</a>]'
         print '</p>'
         print "</body></html>"
     else:
