@@ -5,7 +5,7 @@
 
 # This is for a Brother QL-720NW
 #  uses a2ps to print more than 19 columns of text
-LP="QL-720NW"
+LP="Label"
 
 #Uncomment the next line if you don't want to print
 #exit 0
