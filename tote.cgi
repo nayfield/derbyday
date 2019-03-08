@@ -41,8 +41,8 @@ for horse in nsorted(myr.smembers('derby:horses')):
         odds="INF"
     else:
         odds  = "{} to 1".format((totbet / hbet))
-    hlink='<a href="winner.cgi?winner='+horse+'">W</a>'
-    totetable.append([horse, hbet, hlink])
+    hlink='<a href="winner.cgi?winner='+horse+'">w</a>'
+    totetable.append([horse, odds, hlink])
 ht.table(totetable)
 
 
