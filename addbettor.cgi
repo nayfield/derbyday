@@ -11,7 +11,7 @@ form = cgi.FieldStorage()
 if "newbettor" in form:
     myr=redis.Redis()
     myr.sadd('derby:bettors', form.getfirst("newbettor"))
-    print 'Location: cgi-bin/placebet.cgi\n\n\n'
+    print 'Location: placebet.cgi\n\n\n'
 else:
     print "Content-type:text/html\r\n\r\n"
     print "<html><head>"
