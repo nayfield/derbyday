@@ -7,11 +7,6 @@ cgitb.enable()
 
 form = cgi.FieldStorage()
 
-print "Content-type:text/html\r\n\r\n"
-print "<html><head>"
-print "<title>DerbyDay add bettor</title>"
-print "</head><body>"
-print '<p style="font-size:22px">'
 
 if "newbettor" in form:
     myr=redis.Redis()
