@@ -31,21 +31,20 @@ if vig:
 else:
     vig = 0
 totbet = totbet - vig
-print '<table border=1 style="font-size:20px;border-collapse:collapse;float:left; margin:0 10px 0 0">'
-print '<tr><th>Horse</th><th>Local Odds</th><th>W</th></tr>'
+
+totetable=[ ['Horse', 'Local Odds', 'w'] ]
 for horse in nsorted(myr.smembers('derby:horses')):
     print "<tr><td>", horse, "</td>"
     hbet=0
     for bet in myr.hkeys(('derby:bet:'+horse)):
         hbet=hbet + int(myr.hget(('derby:bet:'+horse), bet))
     if hbet == 0:
-        print "<td>", 'INF'," </td>"
+        odds="INF"
     else:
-        print "<td>", (totbet / hbet), 'to 1</td>'
-        print "<td>"
-        print ('<a href="winner.cgi?winner='+horse+'">W</a>')
-    print "</tr>"
-print "</table>"
+        odds  = "{} to 1".format((totbet / hbet))
+    hlink='<a href="winner.cgi?winner='+horse+'">W</a>'
+    totetable.append([horse, hbet, hlink])
+ht.table(totetable)
 
 
 print "<p>total pot $", totbet, "in", numbets, "bets.</p>"
@@ -57,5 +56,4 @@ for warning in warns:
 print '<p>'
 print '[<a href="placebet.cgi">Place Bet</a>]'
 print '[<a href="listbets.cgi">List Bets</a>]'
-print '</p>'
-print "</body></html>"
+ht.footer()
