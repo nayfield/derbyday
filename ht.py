@@ -15,7 +15,7 @@ def table(tdata):
     print '<table border=1 style="font-size:22px">'
 
     print '<tr>'
-    for i in tdata.pop():
+    for i in tdata.pop(0):
         print '<th>', i, '</th>'
     print '</tr>'
 
