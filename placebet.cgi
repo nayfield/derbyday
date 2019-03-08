@@ -14,15 +14,15 @@ myr=redis.Redis()
 
 form = cgi.FieldStorage()
 
-print "Content-type:text/html\r\n\r\n"
-print "<html><head>"
-print "<title>DerbyDay Place Bet</title>"
-print "</head><body>"
 
 
 limit = int(myr.get('derby:betlimit'))
 
 if "bettor" not in form:
+    print "Content-type:text/html\r\n\r\n"
+    print "<html><head>"
+    print "<title>DerbyDay Place Bet</title>"
+    print "</head><body>"
     print '<form action="placebet.cgi" method="post" style="font-size:22px;">'
     print 'Bettor: <select name=bettor size=21 style="vertical-align:top;">'
     for bettor in nsorted(myr.smembers('derby:bettors')):
@@ -49,6 +49,8 @@ if "bettor" not in form:
     print '<p>'
     print '[<a href="addbettor.cgi">Add a new bettor</a>]'
     print '[<a href="tote.cgi">Back to Tote</a>]'
+    print '</p>'
+    print "</body></html>"
 
 else:
     bettor = form.getfirst("bettor")
@@ -59,15 +61,17 @@ else:
     if out:
         tot = tot + int(out)
     if tot > limit:
+        print "Content-type:text/html\r\n\r\n"
+        print "<html><head>"
+        print "<title>DerbyDay Place Bet</title>"
+        print "</head><body>"
         print '<p style="font-size:30px">Would be over limit!'
+        print '</p><p>'
+        print '[<a href="tote.cgi">Back to Tote</a>]'
+        print '</p>'
+        print "</body></html>"
     else:
         myr.hincrby(('derby:bet:'+horse),bettor,amount)
-        print '<p style="font-size:22px">'
-        print "took bet for", bettor, " - $", amount, "on", horse
-        #print ticket
         sys.stdout.flush()
         subprocess.call(["./ticketprint", horse, bettor, str(amount)])
-    print '</p><p>'
-    print '[<a href="tote.cgi">Back to Tote</a>]'
-print '</p>'
-print "</body></html>"
+        print 'Location: tote.cgi\n\n\n'
