@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# TODO - it would be nice to auto-scale font sizes to fit a certain
+# sub rectangle with specific gravity settings.
+# but that probably means create the 3 text rectangles, then
+# overlay them on the ticket in the right places.
+
+
+
+#Configurables
+IF=ticket_template.png
+# These are for a 800x554 ticket
+hloc="325,125"
+bettorloc="325,450"
+amtloc="485,300"
+
+PRINTER="QL-720NW"
+
+
+
+# Do it
+horse=$1
+bettor=$2
+amt='$'$3
+OF=$(mktemp)
+
+hcmd="text ${hloc} "$'\''${horse}$'\''
+bcmd="text ${bettorloc} "$'\''${bettor}$'\''
+acmd="text ${amtloc} "$'\''${amt}$'\''
+
+convert -font Helvetica-BoldOblique \
+    -pointsize 54 -draw "$hcmd" \
+    -pointsize 72 -draw "$acmd" \
+    -pointsize 28 -draw "$bcmd" \
+    $IF $OF
+
+
+#Print it
+#display $OF
+lpr -P $PRINTER $OF
+rm -f $OF

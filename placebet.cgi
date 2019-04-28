@@ -72,5 +72,5 @@ else:
         print "</body></html>"
     else:
         myr.hincrby(('derby:bet:'+horse),bettor,amount)
-        printout = subprocess.check_output(["./ticketprint", horse, bettor, str(amount)])
+        printout = subprocess.check_output(["./writepng", horse, bettor, str(amount)])
         print 'Location: tote.cgi\n\n\n'
