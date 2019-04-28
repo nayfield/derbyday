@@ -33,6 +33,7 @@
                 - a2ps  #this installs a massive 218 packages!!
                 - redis
                 - git
+                - ImageMagick #a2ps brings it but want to drop that soon
                 - libsemanage-python
 
         - name: enable services
