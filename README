@@ -27,4 +27,22 @@ to tear in half when your horse loses.
 If you do print, you'll need a suitable printer which lpr (a2ps actually)
 can print to.  Tested with a Brother QL-720NW using 54mm paper tape.
 
+---
+
+Changelog:
+
+2018 - created ansible deployment role (still not checked in)
+2019 - updated 1994 era cgi 'click here' after submit to 1995 era redirect
+2019 - tickets so much prettier!
+
+---
+
+TODO:
+
+- My first derby party was in 2000; at that time, It had been at least three years since I had written anything near cgi/HTML ... so we were writing down wagers on a sheet. In 2013 the size of the party had grown such that I needed to automate ... but now my skills were 16 years old.  At least I had learned python somewhere in there.  Thus there is huge opportunity to refactor all of it.
+- Even though the ansible stuff lets me determinstically deploy to a fresh OS, I'd like to run it in a single-process container (connecting to a redis container i already run)
+- CUPS and printing in general sucks. when I saw brother-ql (in pypi) - I said "YES.  THIS IS WHAT I WANT!". It connects directly to the label printer ... I can get rid of depending on CUPS!  I didn't get to using it during the 3 hours I had to hack on derbyday the weekend before the party.  What I *did* do with that time, in prep for a lightweight direct printing library, was turn the ugly text tickets into good-looking graphical betting slips - which will work with brother-ql unlike the a2ps ugly I had.
+
+- This code only sees production once a year.  Low volume.  As much as I love Redis, it's totally overkill - especially when moving to container and having an external dependency.  The model should be recreate each year by loading the field - and after the party append everything to the permanent log.
+
 
