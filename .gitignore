@@ -1,0 +1,4 @@
+*.py[cod]
+*.rpm
+hosts
+ansible.cfg
