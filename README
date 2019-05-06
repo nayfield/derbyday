@@ -45,6 +45,6 @@ TODO:
 - CUPS and printing in general sucks. when I saw brother-ql (in pypi) - I said "YES.  THIS IS WHAT I WANT!". It connects directly to the label printer ... I can get rid of depending on CUPS!  I didn't get to using it during the 3 hours I had to hack on derbyday the weekend before the party.  What I *did* do with that time, in prep for a lightweight direct printing library, was turn the ugly text tickets into good-looking graphical betting slips - which will work with brother-ql unlike the a2ps ugly I had.
 
 - This code only sees production once a year.  Low volume.  As much as I love Redis, it's totally overkill - especially when moving to container and having an external dependency.  The right model for something with a few hours of uptime a year is to should be recreate each year by loading the field and bettors - and after the party append everything to the permanent log.
-- One actual feature would be to handle scratches better - flag the horse as scratched, don't take bets on it, but list it as scratched.
+- One actual feature would be to handle scratches better.  There is an actual process here.  Field is announced (week before after last qual race?) ... Draw is tuesday before the race.  Enter the field then.  After the field is set, scratch marks a horse scratched - but still listed (can't take bets).  and possibly add an also-qualifies horse.
 
 
